@@ -1,1 +1,3 @@
-# rpi_gadget_presentation
+In present, run:
+npm start
+then go to localhost:8000
