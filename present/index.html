@@ -1,49 +1,325 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+    <title>reveal.js</title>
 
-		<link rel="stylesheet" href="css/reset.css">
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css">
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/monokai.css">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/monokai.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+	<section>
+	  <h2>Add easy GPIO to your Desktop/Laptop</h2>
+	  @JDBoyd
+	  <aside class="notes">
+	    Windows/Linux.  Probably Mac, but I haven't tried
+	  </aside>
+	</section>
 
-		<script src="js/reveal.js"></script>
+	<section data-markdown>
+	  ### Why
+	  - Play with sensors/motors easily on your laptop
+	  - Use your regular tools
+	  - Integrate into your program directly.
+	</section>
 
-		<script>
-			// More info about config & dependencies:
-			// - https://github.com/hakimel/reveal.js#configuration
-			// - https://github.com/hakimel/reveal.js#dependencies
-			Reveal.initialize({
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true }
-				]
-			});
-		</script>
-	</body>
+	<section data-markdown>
+	  ### Overview
+	  - Raspberry Pi Zero
+	  - Powered by laptop USB
+	  - OTG network
+	  - pigpio
+	</section>
+
+	<section data-markdown>
+	  ### Some Sensors Here
+	  - Si70721
+	  - Grove?
+	</section>
+
+	<section >
+	  <h2>pigpio?</h2>
+
+	  <aside class="notes">
+	    Since 2014, Raspbian has recommended using pigpiod to access gpio instead of running your program as root to allow direct access. pigpiod allows socket or pipe access.
+	  </aside>
+	</section>
+
+	<section>
+	  <h3>pigpio Languages</h3>
+	  <p>Officially supported:<br/>
+
+	  <ul>
+	    <li>C/C++</li>
+	    <li>Python</li>
+	  </ul>
+	  </p>
+
+	  <p>Also exist:<br/>
+
+	  <ul>
+	    <li>Erlang</li>
+	    <li>Java</li>
+	    <li>.NET</li>
+	    <li>Perl</li>
+	    <li>Smalltalk</li>
+	    <li>node</li>
+	  </ul>
+	  </p>
+
+
+	  <aside class="notes">
+	    C/C++ support appears to be Linux/macOS only.
+	    Python used in example.
+
+	    Relatively simple network protocol.
+	  </section>
+
+
+	<section >
+	  <h2> Why zero?</h2>
+
+	  <aside class="notes">
+	    <ul>
+	      <li>
+		Cheap</li>
+	      <li>Powered from computer USB port</li>
+	      <li>No shared Wifi or ethernet required.</li>
+	      </ul>
+</aside>
+	</section>
+
+	<section>
+	  <h2>Other Pis?</h2>
+
+	  	<aside class="notes">
+		  <ul>
+		    <li>3B+ and before don't support OTG, require more power,
+		      but the remote gpio stuff works fine on them.
+		    </li>
+
+		    <li>4B is still experimental.</li>
+		    </ul>
+		</aside>
+
+	</section>
+
+
+	<section>
+	  <h3>Gadget mode</h3>
+
+	  <aside class="notes">
+	    Feature in linux kernel for OTG devices to function as slaves as several types of devices including: USB Network, USB Serial, Mass Storage, HID, MIDI, Audio, webcam, etc.
+
+	    Supported since Raspbian Jesse, of course not exclusive to raspberry pis.
+	  </aside>
+	</section>
+
+
+	<section>
+	  <h3>No MicroSD Card?</h3>
+
+	  <aside class="notes">
+	    Booting from desktop via USB is supported. However the utility doesn't have a repo for Ubuntu 19.04 (only 18.04 or Raspbian) and there is no documentation for doing so from Windows.
+	  </aside>
+	 </section>
+
+
+	<section>
+	  <h3>No Work MicroSD Card?</h3>
+
+	  <aside class="notes">
+	    Should be a premade image with everything needed already done.  The reference I saw to the existince of such an image expected you to use their downloader program to get it, and it wouldn't work on Ubuntu 19.04.
+	  </aside>
+	 </section>
+
+
+	<section data-markdown>
+	  ### MicroSD Card Configuration
+
+	  - Burn MicroSD card.
+	  - Mount boot partition on computer
+	  - Create empty file "ssh" on boot partition
+	</section>
+
+	<section data-markdown>
+	  ### MicroSD Card Configuration Cont.
+
+	  Also on boot partition:
+	  - Edit config.txt, add line:
+	  <code>dtoverlay=dwc2</code>
+	</section>
+
+	<section data-markdown>
+	  ### MicroSD Card Configuration More Cont.
+
+	  Also on boot partition:
+	  - Edit cmdline.txt and insert after rootwait:
+
+	  modules-load=dwc2,g_ether,g_serial
+	</section>
+
+	<section data-markdown>
+	  ### MicroSD Card Configuration for other Pis
+	  Not needed since gadget mode isn't supported anyway.
+	</section>
+
+	<section>
+	  <h3>Desktop configuration: Windows</h3>
+
+	  <p>Add Bonjour Printer Services if you don't already have iTunes installed.</p>
+
+	</section>
+
+
+	<section>
+	  <h3>Desktop configuration: Linux</h3>
+
+	  <p>Should just work, but on one machine I had to specifically configure usb0 for link-local networking only.</p>
+	</section>
+
+	<section>
+	  <h3>Desktop configuration: macOS</h3>
+	  <p>Should just work, but I havent' tried it.</p>
+	</section>
+
+	<section data-markdown>
+	  ### Shell configuration: Linux/macOS
+
+	  - GPIOZERO_PIN_FACTORY=pigpio
+	  - PIGPIO_ADDR=raspberrypi.local
+	</section>
+
+
+	<section data-markdown>
+	  ### Shell configuration: Windows
+	  - $env:GPIOZERO_PIN_FACTORY = "pigpio"
+	  - $env:PIGPIO_ADDR = "raspberrypi.local"
+	</section>
+
+	<section>
+	  <h3>RPi OS configuration</h3>
+	  SSH to pi@raspberry.local:
+	  <code>sudo systemctl enable pigpiod</code>
+
+	  <aside class="notes">
+	    You could have done this by the USB serial console, but networking configuration needed to be worked out for the
+	  </aside>
+	</section>
+
+ 	<section>
+	  <h3>Caveat 1</h3>
+	  <p>Broadcom pin numbering</p>
+
+	  <aside class="notes">
+	    8 on 40pin port is 14 broadcom numbering.
+	  </aside>
+	</section>
+
+
+
+	<section data-markdown>
+	  ## Example
+	</section>
+
+
+ 	<section>
+	  <h3>Caveats</h3>
+	  <p>Example Code Compatibility</p>
+	  <p>Plenty of Python examples don't use pigpio.<br/>
+
+	    <ul>
+	      <li>Rely on kernel models.</li>
+	      <li>Use /sys/class/gpio</li>
+	      <li>Use native libraries</li>
+	    </ul>
+	  </p>
+	  <aside class="notes">
+	    This effected the grove sensors I brought.
+	  </aside>
+	</section>
+
+ 	<section>
+	  <h3>Caveats</h3>
+	  Latency
+	  <aside class="notes">
+	    Adds latency and it may not be entirely predictable.
+	    Maybe consider not using for timing critical motor control.
+	  </aside>
+	</section>
+
+
+	<section>
+	  <h3>Caveats</h3>
+	  3.3v only
+	  <aside class="notes">
+	    Increasingly items you might use support both, otherwise you will need level shifters.
+	  </aside>
+	</section>
+
+
+	<section>
+	  <h3>Caveats</h3>
+	  No ADC.
+	  <aside class="notes">
+	    Easily solved by adding a I2C or SPI ADC.  Pi hats that do so already exist.
+	  </aside>
+	</section>
+
+	<section>
+	  <h3>Caveats</h3>
+	  No DAC.
+	  <aside class="notes">
+	    Use PWM and a low pass filter.
+	    Use I2C/SPI DAC.
+	  </aside>
+	</section>
+
+	<section data-markdown>
+	  ### Wish
+	  - Premade SD image
+	  - Serious support of USB booting tools
+	  - Existing libraries for more languages
+	</section>
+
+	<section data-markdown>
+	  ## Fin
+	</section>
+
+      </div>
+    </div>
+
+    <script src="js/reveal.js"></script>
+
+    <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+      dependencies: [
+      { src: 'plugin/markdown/marked.js' },
+      { src: 'plugin/markdown/markdown.js' },
+      { src: 'plugin/notes/notes.js', async: true },
+      { src: 'plugin/highlight/highlight.js', async: true }
+      ]
+      });
+    </script>
+  </body>
 </html>
