@@ -106,3 +106,6 @@ venv.bak/
 
 # JDB
 .~
+
+example/example1.py~
+*.py~
